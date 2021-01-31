@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+		<script>
+		function trace(msg) {
+			function var_dump(arr, level) {
+				var dumped_text = "";
+				if (!level)
+					level = 0;
+
+				//The padding given at the beginning of the line.
+				var level_padding = "";
+				for ( var j = 0; j < level + 1; j++ )
+					level_padding += "    ";
+
+				if ( 'object' === typeof(arr) ) { //Array/Hashes/Objects
+					for ( var item in arr ) {
+						var value = arr[item];
+
+						if ( 'object' === typeof(value) ) { //If it is an array,
+							dumped_text += level_padding + "'" + item + "' ...\n";
+							dumped_text += var_dump(value, level + 1);
+						} else {
+							dumped_text += level_padding + "'" + item + "' => " + "(" + typeof(value) + ") \"" + value + "\"\n";
+						}
+					}
+				} else { //Stings/Chars/Numbers etc.
+					dumped_text = "(" + typeof(arr) + ") " + arr;
+					return dumped_text;
+				}
+				if ( 0 === level ) {
+					return '(object)' + String.fromCharCode(10) + dumped_text;
+				} else {
+					return dumped_text;
+				}
+			}
+			trace.trace_queue.push(var_dump(msg));
+		}
+		trace.trace_queue = []; // Don't pollute global namespace
+
+		// Try to keep order of operations by transmitting via queue
+		setInterval(function() {
+			if (0 === trace.trace_queue.length )
+				return;
+			var msg = trace.trace_queue.shift();
+
+			// Transmit message via XHR
+			var xmlhttp;
+			if ( window.XMLHttpRequest ) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+			}
+			var addy = window.location.toString();
+			var url = trace.getLeftMost( addy, "//" ) + "//";
+			url += trace.getLeftMost( trace.delLeftMost( addy + "/", "//"), "/") + "/ds-plugins/debug-trace/debug-trace.php";
+			xmlhttp.open( "GET", url + "?m=" + encodeURIComponent( msg.toString().substring( 0, 2000 ) ), true );
+			xmlhttp.send();
+		}, 50);
+
+		// Utility parsing functions in trace namespace
+		trace.delLeftMost = function( sSource, sFind ) {
+			for ( var i = 0; i < sSource.length; i = i + 1 ) {
+				var f = sSource.indexOf(sFind, i);
+				if ( -1 !== f ) {
+					return sSource.substr( f + sFind.length, sSource.length );
+					break;
+				}
+			}
+			return sSource;
+		};
+		trace.getLeftMost = function( sSource, sFind ) {
+			for ( var i = 0; i < sSource.length; i = i + 1 ) {
+				var f = sSource.indexOf( sFind, i );
+				if ( -1 !== f ) {
+					return sSource.substr( 0, f );
+					break;
+				}
+			}
+			return sSource;
+		};
+	</script>
+<title>Hello world! &#8211; Sanya &#8211; Tarot Oracle</title>
+<meta name='robots' content='noindex,nofollow' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Sanya - Tarot Oracle &raquo; Feed" href="https://sanyakotarot.github.io/sanya-tarot-oracle/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Sanya - Tarot Oracle &raquo; Comments Feed" href="https://sanyakotarot.github.io/sanya-tarot-oracle/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Sanya - Tarot Oracle &raquo; Hello world! Comments Feed" href="https://sanyakotarot.github.io/sanya-tarot-oracle/2020/10/26/hello-world/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/sanyakotarot.github.io\/sanya-tarot-oracle\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.5.3"}};
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-includes/css/dist/block-library/style.min.css?ver=5.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='serverpress-css'  href='https://sanyakotarot.github.io/sanya-tarot-oracle/ds-plugins/ds-cli/fontello/css/serverpress.css?ver=5.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='sp-animation-css'  href='https://sanyakotarot.github.io/sanya-tarot-oracle/ds-plugins/ds-cli/fontello/css/animation.css?ver=5.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'  href='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0' type='text/css' media='all' />
+<link rel='stylesheet' id='blogrid-style-css'  href='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/themes/blogrid/style.css?ver=5.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='blogrid-google-fonts-css'  href='//fonts.googleapis.com/css?family=Lato%3A300%2C400%2C700%2C900&#038;ver=5.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='csshero-main-stylesheet-css'  href='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/uploads/2021/01/csshero-static-style-blogrid.css?ver=75' type='text/css' media='all' />
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp' id='jquery-core-js'></script>
+<script type='text/javascript' id='ds-cli-js-extra'>
+/* <![CDATA[ */
+var ds_cli = {"ajaxurl":"https:\/\/sanyakotarot.github.io\/sanya-tarot-oracle\/wp-admin\/admin-ajax.php","nonce":"dc0b43223d"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/ds-plugins/ds-cli/js/ds-cli.js?ver=5.5.3' id='ds-cli-js'></script>
+<link rel="https://api.w.org/" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-json/" /><link rel="alternate" type="application/json" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-json/wp/v2/posts/1" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://sanyakotarot.github.io/sanya-tarot-oracle/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.5.3" />
+<link rel="canonical" href="https://sanyakotarot.github.io/sanya-tarot-oracle/2020/10/26/hello-world/" />
+<link rel='shortlink' href='https://sanyakotarot.github.io/sanya-tarot-oracle/?p=1' />
+<link rel="alternate" type="application/json+oembed" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fhttps://sanyakotarot.github.io/sanya-tarot-oracle%2F2020%2F10%2F26%2Fhello-world%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fhttps://sanyakotarot.github.io/sanya-tarot-oracle%2F2020%2F10%2F26%2Fhello-world%2F&#038;format=xml" />
+<link rel="pingback" href="https://sanyakotarot.github.io/sanya-tarot-oracle/xmlrpc.php">
+		<style type="text/css">
+		body, .site, .swidgets-wrap h3, .post-data-text { background: ; }
+		.site-title a, .site-description { color: ; }
+		.sheader { background-color:  !important; }
+		.main-navigation ul li a, .main-navigation ul li .sub-arrow, .super-menu .toggle-mobile-menu,.toggle-mobile-menu:before, .mobile-menu-active .smenu-hide { color: ; }
+		#smobile-menu.show .main-navigation ul ul.children.active, #smobile-menu.show .main-navigation ul ul.sub-menu.active, #smobile-menu.show .main-navigation ul li, .smenu-hide.toggle-mobile-menu.menu-toggle, #smobile-menu.show .main-navigation ul li, .primary-menu ul li ul.children li, .primary-menu ul li ul.sub-menu li, .primary-menu .pmenu, .super-menu { border-color: ; border-bottom-color: ; }
+		#secondary .widget h3, #secondary .widget h3 a, #secondary .widget h4, #secondary .widget h1, #secondary .widget h2, #secondary .widget h5, #secondary .widget h6, #secondary .widget h4 a { color: ; }
+		#secondary .widget a, #secondary a, #secondary .widget li a , #secondary span.sub-arrow{ color: ; }
+		#secondary, #secondary .widget, #secondary .widget p, #secondary .widget li, .widget time.rpwe-time.published { color: ; }
+		#secondary .swidgets-wrap, #secondary .widget ul li, .featured-sidebar .search-field { border-color: ; }
+		.site-info, .footer-column-three input.search-submit, .footer-column-three p, .footer-column-three li, .footer-column-three td, .footer-column-three th, .footer-column-three caption { color: ; }
+		.footer-column-three h3, .footer-column-three h4, .footer-column-three h5, .footer-column-three h6, .footer-column-three h1, .footer-column-three h2, .footer-column-three h4, .footer-column-three h3 a { color: ; }
+		.footer-column-three a, .footer-column-three li a, .footer-column-three .widget a, .footer-column-three .sub-arrow { color: ; }
+		.footer-column-three h3:after { background: ; }
+		.site-info, .widget ul li, .footer-column-three input.search-field, .footer-column-three input.search-submit { border-color: ; }
+		.site-footer { background-color: ; }
+		.content-wrapper h2.entry-title a, .content-wrapper h2.entry-title a:hover, .content-wrapper h2.entry-title a:active, .content-wrapper h2.entry-title a:focus, .archive .page-header h1, .blogposts-list h2 a, .blogposts-list h2 a:hover, .blogposts-list h2 a:active, .search-results h1.page-title { color: ; }
+		.blogposts-list .post-data-text, .blogposts-list .post-data-text a, .content-wrapper .post-data-text *{ color: ; }
+		.blogposts-list p { color: ; }
+		.page-numbers li a, .blogposts-list .blogpost-button { background: ; }
+		.page-numbers li a, .blogposts-list .blogpost-button, span.page-numbers.dots, .page-numbers.current, .page-numbers li a:hover { color: ; }
+		.archive .page-header h1, .search-results h1.page-title, .blogposts-list.fbox, span.page-numbers.dots, .page-numbers li a, .page-numbers.current { border-color: ; }
+		.blogposts-list .post-data-divider { background: ; }
+		.page .comments-area .comment-author, .page .comments-area .comment-author a, .page .comments-area .comments-title, .page .content-area h1, .page .content-area h2, .page .content-area h3, .page .content-area h4, .page .content-area h5, .page .content-area h6, .page .content-area th, .single  .comments-area .comment-author, .single .comments-area .comment-author a, .single .comments-area .comments-title, .single .content-area h1, .single .content-area h2, .single .content-area h3, .single .content-area h4, .single .content-area h5, .single .content-area h6, .single .content-area th, .search-no-results h1, .error404 h1 { color: ; }
+		.single .post-data-text, .page .post-data-text, .page .post-data-text a, .single .post-data-text a, .comments-area .comment-meta .comment-metadata a, .single .post-data-text * { color: ; }
+		.page .content-area p, .page article, .page .content-area table, .page .content-area dd, .page .content-area dt, .page .content-area address, .page .content-area .entry-content, .page .content-area li, .page .content-area ol, .single .content-area p, .single article, .single .content-area table, .single .content-area dd, .single .content-area dt, .single .content-area address, .single .entry-content, .single .content-area li, .single .content-area ol, .search-no-results .page-content p { color: ; }
+		.single .entry-content a, .page .entry-content a, .comment-content a, .comments-area .reply a, .logged-in-as a, .comments-area .comment-respond a { color: ; }
+		.comments-area p.form-submit input { background: ; }
+		.error404 .page-content p, .error404 input.search-submit, .search-no-results input.search-submit { color: ; }
+		.page .comments-area, .page article.fbox, .page article tr, .page .comments-area ol.comment-list ol.children li, .page .comments-area ol.comment-list .comment, .single .comments-area, .single article.fbox, .single article tr, .comments-area ol.comment-list ol.children li, .comments-area ol.comment-list .comment, .error404 main#main, .error404 .search-form label, .search-no-results .search-form label, .error404 input.search-submit, .search-no-results input.search-submit, .error404 main#main, .search-no-results section.fbox.no-results.not-found{ border-color: ; }
+		.single .post-data-divider, .page .post-data-divider { background: ; }
+		.single .comments-area p.form-submit input, .page .comments-area p.form-submit input { color: ; }
+		.bottom-header-wrapper { padding-top: px; }
+		.bottom-header-wrapper { padding-bottom: px; }
+		.bottom-header-wrapper { background: ; }
+		.bottom-header-wrapper *{ color: ; }
+		.header-widget a, .header-widget li a, .header-widget i.fa { color: ; }
+		.header-widget, .header-widget p, .header-widget li, .header-widget .textwidget { color: ; }
+		.header-widget .widget-title, .header-widget h1, .header-widget h3, .header-widget h2, .header-widget h4, .header-widget h5, .header-widget h6{ color: ; }
+		.header-widget.swidgets-wrap, .header-widget ul li, .header-widget .search-field { border-color: ; }
+		.bottom-header-title, .bottom-header-paragraph{ color: ; }
+
+		#secondary .widget-title-lines:after, #secondary .widget-title-lines:before { background: ; }
+
+
+		.header-widgets-wrapper .swidgets-wrap{ background: ; }
+		.top-nav-wrapper, .primary-menu .pmenu, .super-menu, #smobile-menu, .primary-menu ul li ul.children, .primary-menu ul li ul.sub-menu { background-color: ; }
+		#secondary .widget li, #secondary input.search-field, #secondary div#calendar_wrap, #secondary .tagcloud, #secondary .textwidget{ background: ; }
+		#secondary .swidget { border-color: ; }
+		.archive article.fbox, .search-results article.fbox, .blog article.fbox { background: ; }
+
+
+		.comments-area, .single article.fbox, .page article.fbox { background: ; }
+		</style>
+		<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+	<link rel="icon" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/uploads/2020/10/cropped-tarot-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/uploads/2020/10/cropped-tarot-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/uploads/2020/10/cropped-tarot-180x180.png" />
+<meta name="msapplication-TileImage" content="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/uploads/2020/10/cropped-tarot-270x270.png" />
+		<style type="text/css" id="wp-custom-css">
+			  #circle {
+			opacity: 80%;
+			border: 5px solid ;
+			margin:0 auto;
+      width: 225px;
+      height: 225px;
+      -webkit-border-radius: 112.5px;
+      -moz-border-radius: 112.5px;
+      border-radius: 112.5px;
+      background: white;
+    }
+
+.text span{
+	opacity: 0;
+	transition: all 1s;
+}
+
+.text:hover span {
+	opacity: 1;
+}
+
+.abuttonm {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+		background-color: #aeefea;
+    text-decoration: none;
+    color: initial;
+}
+
+.imgm{
+	transition: background 1s;
+}
+.imgm:hover{
+	background: white;
+}		</style>
+		</head>
+
+<body class="post-template-default single single-post postid-1 single-format-standard custom-background masthead-fixed elementor-default elementor-kit-7">
+<a class="skip-link screen-reader-text" href="#primary">Skip to content</a>
+
+	<div id="page" class="site">
+
+		<header id="masthead" class="sheader site-header clearfix">
+			<nav id="primary-site-navigation" class="primary-menu main-navigation clearfix">
+
+				<a href="#" id="pull" class="smenu-hide toggle-mobile-menu menu-toggle" aria-controls="secondary-menu" aria-expanded="false">Menu</a>
+				<div class="top-nav-wrapper">
+					<div class="content-wrap">
+						<div class="logo-container"> 
+
+													<a class="logofont" href="https://sanyakotarot.github.io/sanya-tarot-oracle/" rel="home">Sanya &#8211; Tarot Oracle</a>
+									</div>
+				<div class="center-main-menu">
+					<div id="primary-menu" class="pmenu"><ul>
+<li class="page_item page-item-96"><a href="https://sanyakotarot.github.io/sanya-tarot-oracle/about/">About</a></li>
+<li class="page_item page-item-2"><a href="https://sanyakotarot.github.io/sanya-tarot-oracle/">Home</a></li>
+<li class="page_item page-item-383"><a href="https://sanyakotarot.github.io/sanya-tarot-oracle/request-reading/">Request Reading</a></li>
+</ul></div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="super-menu clearfix">
+			<div class="super-menu-inner">
+				
+
+									<a class="logofont" href="https://sanyakotarot.github.io/sanya-tarot-oracle/" rel="home">Sanya &#8211; Tarot Oracle</a>
+						<a href="#" id="pull" class="toggle-mobile-menu menu-toggle" aria-controls="secondary-menu" aria-expanded="false"></a>
+	</div>
+</div>
+<div id="mobile-menu-overlay"></div>
+</header>
+
+	
+<div class="content-wrap">
+
+
+	<!-- Upper widgets -->
+	<div class="header-widgets-wrapper">
+		
+	
+</div>
+
+</div>
+
+<div id="content" class="site-content clearfix">
+	<div class="content-wrap">
+
+	<div id="primary" class="featured-content content-area">
+		<main id="main" class="site-main">
+
+				<article id="post-1" class="posts-entry fbox post-1 post type-post status-publish format-standard hentry category-uncategorized">
+	<header class="entry-header">
+		<h1 class="entry-title">Hello world!</h1>		<div class="entry-meta">
+			<div class="blog-data-wrapper">
+				<div class="post-data-divider"></div>
+				<div class="post-data-positioning">
+					<div class="post-data-text">
+						<span class="posted-on">Posted on <a href="https://sanyakotarot.github.io/sanya-tarot-oracle/2020/10/26/hello-world/" rel="bookmark"><time class="entry-date published updated" datetime="2020-10-26T20:35:36+00:00">October 26, 2020</time></a></span><span class="byline"> </span>					</div>
+				</div>
+			</div>
+		</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		
+<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
+
+			</div><!-- .entry-content -->
+</article><!-- #post-1 -->
+
+<div id="comments" class="fbox comments-area">
+
+			<h2 class="comments-title">
+			1 thought on &ldquo;<span>Hello world!</span>&rdquo;		</h2><!-- .comments-title -->
+
+		
+		<ol class="comment-list">
+					<li id="comment-1" class="comment even thread-even depth-1">
+			<article id="div-comment-1" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d7a973c7dab26985da5f961be7b74480?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/d7a973c7dab26985da5f961be7b74480?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy'/>						<b class="fn"><a href='https://wordpress.org/' rel='external nofollow ugc' class='url'>A WordPress Commenter</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://sanyakotarot.github.io/sanya-tarot-oracle/2020/10/26/hello-world/#comment-1">
+							<time datetime="2020-10-26T20:35:36+00:00">
+								October 26, 2020 at 8:35 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, this is a comment.<br />
+To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.<br />
+Commenter avatars come from <a href="https://gravatar.com/">Gravatar</a>.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://sanyakotarot.github.io/sanya-tarot-oracle/2020/10/26/hello-world/?replytocom=1#respond' data-commentid="1" data-postid="1" data-belowelement="div-comment-1" data-respondelement="respond" data-replyto="Reply to A WordPress Commenter" aria-label='Reply to A WordPress Commenter'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://sanyakotarot.github.io/sanya-tarot-oracle/2020/10/26/hello-world/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://sanyakotarot.github.io/sanya-tarot-oracle/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" /></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+</div>
+</div><!-- #content -->
+
+<footer id="colophon" class="site-footer clearfix">
+
+	<div class="content-wrap">
+		
+			
+			
+		</div>
+
+		<div class="site-info">
+			&copy;2021 Sanya &#8211; Tarot Oracle							<!-- Delete below lines to remove copyright from footer -->
+				<span class="footer-info-right">
+					  <a href="https://superbthemes.com/"></a> 				</span>
+				<!-- Delete above lines to remove copyright from footer -->
+		</div><!-- .site-info -->
+	</div>
+
+
+
+</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<div id="smobile-menu" class="mobile-only"></div>
+<div id="mobile-menu-overlay"></div>
+
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/themes/blogrid/js/navigation.js?ver=20170823' id='blogrid-navigation-js'></script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/themes/blogrid/js/skip-link-focus-fix.js?ver=20170823' id='blogrid-skip-link-focus-fix-js'></script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/themes/blogrid/js/jquery.flexslider.js?ver=20150423' id='blogrid-flexslider-js'></script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/themes/blogrid/js/script.js?ver=20160720' id='blogrid-script-js'></script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-content/themes/blogrid/js/accessibility.js?ver=20160720' id='blogrid-accessibility-js'></script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-includes/js/comment-reply.min.js?ver=5.5.3' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://sanyakotarot.github.io/sanya-tarot-oracle/wp-includes/js/wp-embed.min.js?ver=5.5.3' id='wp-embed-js'></script>
+</body>
+</html>
