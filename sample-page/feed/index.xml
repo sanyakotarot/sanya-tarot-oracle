@@ -11,11 +11,11 @@
 	<atom:link href="https://sanyakotarot.github.io/sanya-tarot-oracle/sample-page/feed/" rel="self" type="application/rss+xml" />
 	<link>https://sanyakotarot.github.io/sanya-tarot-oracle/</link>
 	<description></description>
-	<lastBuildDate>Thu, 17 Dec 2020 20:28:26 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 01 Feb 2021 21:34:30 +0000</lastBuildDate>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=5.5.3</generator>
+	<generator>https://wordpress.org/?v=5.6</generator>
 </channel>
 </rss>

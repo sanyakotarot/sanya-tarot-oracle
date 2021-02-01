@@ -1157,8 +1157,7 @@ object {
 }
 
 .main-navigation ul li a {
-	font-size: 15px;
-	display: block
+	display: block;
 }
 
 .main-navigation ul li.current-menu-ancestor>a,
@@ -1967,7 +1966,6 @@ object {
 	#smobile-menu.show .main-navigation ul li {
 		width: 100%;
 		display: block;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.2)
 	}
 	#smobile-menu.show .main-navigation ul li a {
 		padding: 12px 20px
@@ -2080,8 +2078,8 @@ object {
 }
 .main-navigation ul li a {
 	color: #000;
-	font-weight: 400;
-	font-size: 15px;
+	font-weight: 700;
+	font-size: 25px;
 	padding: 15px 1rem; 
 	text-decoration: none;
 }
@@ -2648,7 +2646,7 @@ span.bottom-header-below-title {
 		text-align:left;
 	}
 	#smobile-menu.show .main-navigation ul li a {
-		text-align:left;
+		text-align:center;
 	}
 	#smobile-menu.show .main-navigation ul ul.sub-menu li {
 		padding-left: 20px;
@@ -2958,6 +2956,11 @@ aside#secondary section:first-of-type {
 .pmenu li:focus-within> .sub-menu {
 	display:block;
 }
+
+.pmenu{
+	width:100%;
+}
+
 
 #smobile-menu .pmenu li:focus-within ul.sub-menu {
     display: block !important;
