@@ -85,6 +85,14 @@
 			return sSource;
 		};
 	</script>
+	<script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		  $(window).on('load', function () {
+			$preloader = $('.preloader'),
+			  $loader = $preloader.find('.prePreloader');
+			$loader.fadeOut();
+			$preloader.delay(350).fadeOut('slow');});
+	</script>
 <title>Sanya &#8211; Tarot Oracle</title>
 <meta name='robots' content='noindex,nofollow' />
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
@@ -244,6 +252,9 @@ body.custom-background { background-color: #ffffff; }
 		</head>
 
 <body class="home page-template page-template-elementor_header_footer page page-id-2 custom-background masthead-fixed elementor-default elementor-template-full-width elementor-kit-7 elementor-page elementor-page-2">
+<div class="preloader">
+   <div class="prePreloader"></div>
+</div>
 <a class="skip-link screen-reader-text" href="#primary">Skip to content</a>
 
 	<div id="page" class="site">
