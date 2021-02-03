@@ -93,6 +93,13 @@
 			$loader.fadeOut();
 			$preloader.delay(350).fadeOut('slow');});
 	</script>
+	<script>
+		jQuery("iframe").load(function() {
+			jQuery("html,body").animate({
+				scrollTop: 0
+			}, "slow");
+		});
+</script>
 <title>Request Reading &#8211; Sanya &#8211; Tarot Oracle</title>
 <meta name='robots' content='noindex,nofollow' />
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
